@@ -4,33 +4,32 @@ import java.util.List;
 public class Problem30 {
     public static List<List<Integer>> getAntiDiagonals(int[][] matrix) {
         int N = matrix.length;
-        List<List<Integer>> result = new ArrayList<>();
-        for (int startCol = 0; startCol < N; startCol++) {
-            List<Integer> antiDiagonal = new ArrayList<>();
-            int row = 0;
-            int col = startCol;
-            while (row < N && col >= 0) {
-                antiDiagonal.add(matrix[row][col]);
-                row++;
-                col--;
-            }
-            result.add(antiDiagonal);
+        List<List<Integer>> result = new ArrayList<>();        
+        for (int start = 0; start < N; start++) {
+            result.add(collectAntiDiagonal(matrix, 0, start));
         }
 
-        // Collect anti-diagonals starting from the left column (excluding the top-left cell)
-        for (int startRow = 1; startRow < N; startRow++) {
-            List<Integer> antiDiagonal = new ArrayList<>();
-            int row = startRow;
-            int col = N - 1;
-            while (row < N && col >= 0) {
-                antiDiagonal.add(matrix[row][col]);
-                row++;
-                col--;
-            }
-            result.add(antiDiagonal);
+        for (int start = 1; start < N; start++) {
+            result.add(collectAntiDiagonal(matrix, start, N - 1));
         }
 
         return result;
+    }
+
+    
+    private static List<Integer> collectAntiDiagonal(int[][] matrix, int startRow, int startCol) {
+        List<Integer> antiDiagonal = new ArrayList<>();
+        int N = matrix.length;
+        int row = startRow;
+        int col = startCol;
+
+        while (row < N && col >= 0) {
+            antiDiagonal.add(matrix[row][col]);
+            row++;
+            col--;
+        }
+
+        return antiDiagonal;
     }
 
     public static void main(String[] args) {
