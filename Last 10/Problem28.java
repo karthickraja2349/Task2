@@ -15,6 +15,8 @@ class Problem28{
         int array[] = new int[range];
         System.out.println("Enter the sum number (1 to 9):");
         int sumNumber = input.nextInt();
+        if(sumNumber<0 || sumNumber>9)
+           return -1;
         return findSum(result,array,range,sumNumber);
     }
     private int findSum(StringBuilder result,int array[],int range,int sumNumber){
